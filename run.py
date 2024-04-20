@@ -2,9 +2,14 @@ from random_word import Wordnik
 
 wordnik_service = Wordnik()
 
-word = wordnik_service.get_random_word()
-
-print(word)
+def new_word():
+    """
+    Gets a new random word.
+    """
+    global word
+    word = wordnik_service.get_random_word().lower()
+    print(word)
+    return word
 
 def create_empty_list():
     """
@@ -41,25 +46,28 @@ def check_guess():
     then test wether the user's guess or 'empty_string'
     matches the random word.
     """
-    global doesnt_contain, lives, currentscore
     if len(user_guess) < 2:       
-        if user_guess not in [*word]:
-            doesnt_contain += user_guess
-        else:
-            for i in range(len([*word])):
-                if [*word][i] == user_guess:
-                    empty_list[i] = user_guess
+        for i in range(len([*word])):
+            if [*word][i] == user_guess:
+                empty_list[i] = user_guess
         
 
     if empty_list == [*word] or user_guess == word:
         print(f"Congrats! The word was {word}")
+        run_game()
     else:
         print(*empty_list)
         get_input()
         check_guess()
 
 
+def run_game():
+    """
+    Run functions to set up game
+    """
+    new_word()
+    create_empty_list()
+    get_input()
+    check_guess()
 
-create_empty_list()
-get_input()
-check_guess()
+run_game()
