@@ -14,7 +14,6 @@ def new_word():
     global word, lives
     word = wordnik_service.get_random_word().lower()
     lives += len(word)
-    print(word)
     return word
 
 
@@ -158,4 +157,18 @@ def run_game():
     new_guess()
 
 
+print("""
+WELCOME TO WORD GUESS!
+
+Guess the random words generated from Wordnik. Enter letters to fill in the
+blank letter spaces or guess the whole word. Letter guesses and incorrect word 
+guesses cost life points. Life points equal to the length of the random word 
+are added for each new word. Guess the word before your life points reach 0.
+Successful guesses score a point.
+
+Please visit Wordnik.com and enter any words that come up to find out more 
+about them.
+
+Let's Play!
+""")
 run_game()
