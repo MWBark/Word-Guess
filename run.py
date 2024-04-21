@@ -25,9 +25,15 @@ def create_empty_list():
         else:
             empty_list += "_"
 
-    print(f"{len(word)} letters")
-    print(*empty_list)
     return empty_list
+
+
+def display_info():
+    """
+    Displays information like word length to help user guess
+    """
+    print(f"\n{len(word)} letters")
+    print(*empty_list)
 
 
 def get_input():
@@ -56,7 +62,7 @@ def check_guess():
         print(f"Congrats! The word was {word}")
         run_game()
     else:
-        print(*empty_list)
+        display_info()
         get_input()
         check_guess()
 
@@ -67,6 +73,7 @@ def run_game():
     """
     new_word()
     create_empty_list()
+    display_info()
     get_input()
     check_guess()
 
