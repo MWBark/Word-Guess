@@ -86,7 +86,8 @@ def check_guess():
         
 
     if empty_list == [*word] or user_guess == word:
-        print(f"Congrats! The word was {word}")
+        print(f"\nCongrats! The word was {word}")
+        doesnt_contain = []
         run_game()
     else:
         lives -= 1
