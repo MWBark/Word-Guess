@@ -3,6 +3,8 @@ from random_word import Wordnik
 wordnik_service = Wordnik()
 doesnt_contain = []
 lives = 0
+currentscore = 0
+highscore = 0
 
 
 def new_word():
@@ -38,7 +40,7 @@ def display_info():
     and lives to help user guess
     """
     letters_string = ", ".join(doesnt_contain)
-    print(f"\nlives: {lives}\n{len(word)} letters, doesn't contain: {letters_string}")
+    print(f"\nlives: {lives} currentscore: {currentscore} highscore: {highscore}\n{len(word)} letters, doesn't contain: {letters_string}")
     print(*empty_list)
 
 
@@ -56,10 +58,11 @@ def check_stats():
     Check the user's stats, such as lives.
     Runs a new game or new guess based on lives value.
     """
-    global doesnt_contain
+    global doesnt_contain, currentscore
     if lives == 0:
         print(f"\nBad luck. the word was {word}")
         doesnt_contain = []
+        currentscore = 0
         run_game()
     else:
         display_info()
@@ -74,7 +77,7 @@ def check_guess():
     then test wether the user's guess or 'empty_string'
     matches the random word.
     """
-    global doesnt_contain, lives
+    global doesnt_contain, lives, currentscore
     if len(user_guess) < 2:       
         if len(user_guess) < 2:       
             if user_guess not in [*word]:
@@ -88,10 +91,20 @@ def check_guess():
     if empty_list == [*word] or user_guess == word:
         print(f"\nCongrats! The word was {word}")
         doesnt_contain = []
+        currentscore += 1
+        update_highscore()
         run_game()
     else:
         lives -= 1
         check_stats()
+
+def update_highscore():
+    """
+    Updates the highscore based on the currentscore.
+    """
+    global highscore, currentscore
+    if currentscore > highscore:
+        highscore = currentscore
 
 
 def run_game():
