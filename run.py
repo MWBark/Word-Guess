@@ -62,6 +62,16 @@ def validate_input_length():
         new_guess()
 
 
+def validate_input_characters():
+    """
+    Checks the user's guess only contains lowercase alphabet characters
+    """
+    for i in [*user_guess]:
+        if [i] not in list(map(chr, range(97, 123))):
+            print(f"\n{user_guess} contains non lowercase alphabetic characters")
+            new_guess()
+
+
 def check_stats():
     """
     Check the user's stats, such as lives.
@@ -121,6 +131,7 @@ def new_guess():
     display_info()
     get_input()
     validate_input_length()
+    validate_input_characters()
     check_guess()
 
 
@@ -131,5 +142,6 @@ def run_game():
     new_word()
     create_empty_list()
     new_guess()
+
 
 run_game()
