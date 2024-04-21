@@ -1,6 +1,8 @@
 from random_word import Wordnik
 
 wordnik_service = Wordnik()
+doesnt_contain = []
+
 
 def new_word():
     """
@@ -30,9 +32,10 @@ def create_empty_list():
 
 def display_info():
     """
-    Displays information like word length to help user guess
+    Displays word length and letters the word doesn't contain to help user guess
     """
-    print(f"\n{len(word)} letters")
+    letters_string = ", ".join(doesnt_contain)
+    print(f"\n{len(word)} letters, doesn't contain: {letters_string}")
     print(*empty_list)
 
 
@@ -52,10 +55,15 @@ def check_guess():
     then test wether the user's guess or 'empty_string'
     matches the random word.
     """
-    if len(user_guess) < 2:       
-        for i in range(len([*word])):
-            if [*word][i] == user_guess:
-                empty_list[i] = user_guess
+    if len(user_guess) < 2:   
+        global doesnt_contain    
+        if len(user_guess) < 2:       
+            if user_guess not in [*word]:
+                doesnt_contain += user_guess
+            else:
+                for i in range(len([*word])):
+                    if [*word][i] == user_guess:
+                        empty_list[i] = user_guess
         
 
     if empty_list == [*word] or user_guess == word:
