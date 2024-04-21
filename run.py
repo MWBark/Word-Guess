@@ -17,6 +17,17 @@ def new_word():
     print(word)
     return word
 
+
+def validate_word():
+    """
+    Checks the random word only contains lowercase english alphabet letters or '-'.
+    If not, runs 'run_game' function again.
+    """
+    for i in [*word]:
+        if i not in list(map(chr, range(97, 123))) and i != '-':
+            run_game()
+
+
 def create_empty_list():
     """
     Creates a number of underscores equal to the random word length
@@ -52,6 +63,7 @@ def get_input():
     user_guess = input("Enter a letter or word: \n")
     return user_guess
 
+
 def validate_input_length():
     """
     Checks the length of the user's word guess matches that of the random word.
@@ -64,11 +76,11 @@ def validate_input_length():
 
 def validate_input_characters():
     """
-    Checks the user's guess only contains lowercase alphabet characters
+    Checks the user's guess only contains lowercase english alphabet characters
     """
     for i in [*user_guess]:
-        if [i] not in list(map(chr, range(97, 123))):
-            print(f"\n{user_guess} contains non lowercase alphabetic characters")
+        if i not in list(map(chr, range(97, 123))):
+            print(f"\n{user_guess} contains non lowercase english alphabetic characters")
             new_guess()
 
 
@@ -115,6 +127,7 @@ def check_guess():
         lives -= 1
         check_stats()
 
+
 def update_highscore():
     """
     Updates the highscore based on the currentscore.
@@ -140,6 +153,7 @@ def run_game():
     Run functions to set up game
     """
     new_word()
+    validate_word()
     create_empty_list()
     new_guess()
 
