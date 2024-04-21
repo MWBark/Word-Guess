@@ -52,6 +52,15 @@ def get_input():
     user_guess = input("Enter a letter or word: \n")
     return user_guess
 
+def validate_input_length():
+    """
+    Checks the length of the user's word guess matches that of the random word.
+    Prints statement and starts new guess if true.
+    """
+    if len(user_guess) > 1 and len(user_guess) != len(word):
+        print(f"\nIncorrect word length of {len(user_guess)}")
+        new_guess()
+
 
 def check_stats():
     """
@@ -65,9 +74,7 @@ def check_stats():
         currentscore = 0
         run_game()
     else:
-        display_info()
-        get_input()
-        check_guess()
+        new_guess()
 
 
 def check_guess():
@@ -107,14 +114,22 @@ def update_highscore():
         highscore = currentscore
 
 
+def new_guess():
+    """
+    Runs through functions to get a new guess from the user.
+    """
+    display_info()
+    get_input()
+    validate_input_length()
+    check_guess()
+
+
 def run_game():
     """
     Run functions to set up game
     """
     new_word()
     create_empty_list()
-    display_info()
-    get_input()
-    check_guess()
+    new_guess()
 
 run_game()
