@@ -1,1 +1,4 @@
-# Your requirements go here
+iniconfig==2.0.0
+pluggy==1.4.0
+pytest==8.1.1
+Random-Word==1.0.11
