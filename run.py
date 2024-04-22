@@ -19,8 +19,8 @@ def new_word():
 
 def validate_word():
     """
-    Checks the random word only contains lowercase english alphabet letters or '-'.
-    If not, runs 'run_game' function again.
+    Checks the random word only contains lowercase english alphabet letters
+    or '-'. If not, runs 'run_game' function again.
     """
     for i in [*word]:
         if i not in list(map(chr, range(97, 123))) and i != '-':
@@ -33,7 +33,7 @@ def create_empty_list():
     that will be updated with letters the user guesses.
     """
     global empty_list
-    empty_list =[]
+    empty_list = []
 
     for i in [*word]:
         if i == '-':
@@ -50,7 +50,8 @@ def display_info():
     and lives to help user guess
     """
     letters_string = ", ".join(doesnt_contain)
-    print(f"\nlives: {lives} currentscore: {currentscore} highscore: {highscore}\n{len(word)} letters, doesn't contain: {letters_string}")
+    print(f"\nlives:{lives} currentscore:{currentscore} highscore:{highscore}")
+    print(f"{len(word)} letters, doesn't contain: {letters_string}")
     print(*empty_list)
 
 
@@ -79,7 +80,8 @@ def validate_input_characters():
     """
     for i in [*user_guess]:
         if i not in list(map(chr, range(97, 123))):
-            print(f"\n{user_guess} contains non lowercase english alphabetic characters")
+            print(f"\n{user_guess} contains invalid characters")
+            print("Please use lowercase english alphabet characters")
             new_guess()
 
 
@@ -101,20 +103,19 @@ def check_stats():
 def check_guess():
     """
     First checks user's guess is a letter
-    then updates the 'empty_list' if it is, 
+    then updates the 'empty_list' if it is,
     then test wether the user's guess or 'empty_string'
     matches the random word.
     """
     global doesnt_contain, lives, currentscore
-    if len(user_guess) < 2:       
-        if len(user_guess) < 2:       
+    if len(user_guess) < 2:
+        if len(user_guess) < 2:
             if user_guess not in [*word]:
                 doesnt_contain += user_guess
             else:
                 for i in range(len([*word])):
                     if [*word][i] == user_guess:
                         empty_list[i] = user_guess
-        
 
     if empty_list == [*word] or user_guess == word:
         print(f"\nCongrats! The word was {word}")
@@ -161,12 +162,12 @@ print("""
 WELCOME TO WORD GUESS!
 
 Guess the random words generated from Wordnik. Enter letters to fill in the
-blank letter spaces or guess the whole word. Letter guesses and incorrect word 
-guesses cost life points. Life points equal to the length of the random word 
+blank letter spaces or guess the whole word. Letter guesses and incorrect word
+guesses cost life points. Life points equal to the length of the random word
 are added for each new word. Guess the word before your life points reach 0.
 Successful guesses score a point.
 
-Please visit Wordnik.com and enter any words that come up to find out more 
+Please visit Wordnik.com and enter any words that come up to find out more
 about them.
 
 Let's Play!
