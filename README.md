@@ -51,6 +51,10 @@ A successful word guess scores the user 1 point.
 
 I have manually tested this project by doing the following:
 
+-  Passed the code through a PEP8 linter and confirmed there are no problems
+-  Given invalid inputs: incorrect word guess length, invalid characters in guesses
+-  Tested in my local terminal and the Heroku terminal
+
 ## Bugs
 
 ### Solved Bugs
@@ -60,6 +64,11 @@ I have manually tested this project by doing the following:
 ### Unfixed Bugs
 
 - No bugs remaining.
+
+### Validator Testing
+
+- PEP8
+  - No errors were returned from [pep8ci.herokuapp.com](https://pep8ci.herokuapp.com/)
 
 ## Deployment
 
