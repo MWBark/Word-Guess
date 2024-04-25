@@ -129,6 +129,9 @@ def check_guess(user_guess, lives, word, empty_list, doesnt_contain, currentscor
 
 
 def got_word(word, currentscore, highscore):
+    """
+    Run winning end game. Ad 1 to currentscore, update the highscore, then run_game.
+    """
     print(f"\nCongrats! The word was '{word}\n'")
     currentscore += 1
 
