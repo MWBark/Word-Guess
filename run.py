@@ -46,7 +46,8 @@ def display_info(lives, word, empty_list, doesnt_contain, currentscore, highscor
     """
     letters_string = ", ".join(doesnt_contain)
     print(f"\nlives:{lives} currentscore:{currentscore} highscore:{highscore}")
-    print(f"{len(word)} letters, doesn't contain: {letters_string}")
+    print("." * 38)
+    print(f"{len(word)} letters, doesn't contain: {letters_string}\n")
     print(*empty_list)
 
 
@@ -86,7 +87,7 @@ def check_lives(lives, word, empty_list, doesnt_contain, currentscore, highscore
     else start a new guess.
     """
     if lives == 0:
-        print(f"\nBad luck. the word was {word}")
+        print(f"\nBad luck. the word was {word}\n")
         currentscore = 0
         run_game(currentscore, highscore)
     else:
