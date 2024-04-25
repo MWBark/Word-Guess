@@ -80,10 +80,10 @@ def validate_input(user_guess, lives, word, empty_list, doesnt_contain, currents
                 new_guess(lives, word, empty_list, doesnt_contain, currentscore, highscore)
 
 
-def check_stats(lives, word, empty_list, doesnt_contain, currentscore, highscore):
+def check_lives(lives, word, empty_list, doesnt_contain, currentscore, highscore):
     """
-    Check the user's stats, such as lives.
-    Runs a new game or new guess based on lives value.
+    Check the lives. If lives = 0, reset currentscore and run_game,
+    else start a new guess.
     """
     if lives == 0:
         print(f"\nBad luck. the word was {word}")
@@ -117,14 +117,14 @@ def check_guess(user_guess, lives, word, empty_list, doesnt_contain, currentscor
             doesnt_contain += user_guess
             print(f"\nword doesn't contain '{user_guess}'\n")
             lives -= 1
-            check_stats(lives, word, empty_list, doesnt_contain, currentscore, highscore)
+            check_lives(lives, word, empty_list, doesnt_contain, currentscore, highscore)
     else:
         if user_guess == word:
                 got_word(word, currentscore, highscore)
         else:
             print(f"\nThe word isn't '{user_guess}'")
             lives -= 1
-            check_stats(lives, word, empty_list, doesnt_contain, currentscore, highscore)
+            check_lives(lives, word, empty_list, doesnt_contain, currentscore, highscore)
 
 
 def got_word(word, currentscore, highscore):
