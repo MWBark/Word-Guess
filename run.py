@@ -1,8 +1,6 @@
 from random_word import Wordnik
 
 wordnik_service = Wordnik()
-doesnt_contain = []
-lives = 0
 currentscore = 0
 highscore = 0
 
@@ -11,13 +9,11 @@ def new_word():
     """
     Gets a new random word.
     """
-    global word, lives
     word = wordnik_service.get_random_word().lower()
-    lives += len(word)
     return word
 
 
-def validate_word():
+def validate_word(word):
     """
     Checks the random word only contains lowercase english alphabet letters
     or '-'. If not, runs 'run_game' function again.
@@ -27,12 +23,11 @@ def validate_word():
             run_game()
 
 
-def create_empty_list():
+def create_empty_list(word):
     """
     Creates a number of underscores equal to the random word length
     that will be updated with letters the user guesses.
     """
-    global empty_list
     empty_list = []
 
     for i in [*word]:
@@ -44,7 +39,7 @@ def create_empty_list():
     return empty_list
 
 
-def display_info():
+def display_info(doesnt_contain, lives, currentscore, highscore, word, empty_list):
     """
     Displays word length, letters the word doesn't contain
     and lives to help user guess
@@ -59,22 +54,21 @@ def get_input():
     """
     Gets user's letter or word guess.
     """
-    global user_guess
     user_guess = input("Enter a letter or word: \n")
     return user_guess
 
 
-def validate_input_length():
+def validate_input_length(user_guess, lives, word, empty_list, doesnt_contain, currentscore, highscore):
     """
     Checks the length of the user's word guess matches that of the random word.
     Prints statement and starts new guess if true.
     """
     if len(user_guess) > 1 and len(user_guess) != len(word):
         print(f"\nIncorrect word length of {len(user_guess)}")
-        new_guess()
+        new_guess(lives, word, empty_list, doesnt_contain, currentscore, highscore)
 
 
-def validate_input_characters():
+def validate_input_characters(user_guess, lives, word, empty_list, doesnt_contain, currentscore, highscore):
     """
     Checks the user's guess only contains lowercase english alphabet characters
     """
@@ -82,80 +76,81 @@ def validate_input_characters():
         if i not in list(map(chr, range(97, 123))):
             print(f"\n{user_guess} contains invalid characters")
             print("Please use lowercase english alphabet characters")
-            new_guess()
+            new_guess(lives, word, empty_list, doesnt_contain, currentscore, highscore)
 
 
-def check_stats():
+def check_stats(lives, word, empty_list, doesnt_contain, currentscore, highscore):
     """
     Check the user's stats, such as lives.
     Runs a new game or new guess based on lives value.
     """
-    global doesnt_contain, currentscore
     if lives == 0:
         print(f"\nBad luck. the word was {word}")
         doesnt_contain = []
         currentscore = 0
         run_game()
     else:
-        new_guess()
+        new_guess(lives, word, empty_list, doesnt_contain, currentscore, highscore)
 
 
-def check_guess():
+def check_guess(user_guess, lives, word, empty_list, doesnt_contain, currentscore, highscore):
     """
     First checks user's guess is a letter
     then updates the 'empty_list' if it is,
     then test wether the user's guess or 'empty_string'
     matches the random word.
     """
-    global doesnt_contain, lives, currentscore
     if len(user_guess) < 2:
-        if len(user_guess) < 2:
-            if user_guess not in [*word]:
-                doesnt_contain += user_guess
-            else:
-                for i in range(len([*word])):
-                    if [*word][i] == user_guess:
-                        empty_list[i] = user_guess
+        if user_guess not in [*word]:
+            doesnt_contain += user_guess
+        else:
+            for i in range(len([*word])):
+                if [*word][i] == user_guess:
+                    empty_list[i] = user_guess
 
     if empty_list == [*word] or user_guess == word:
         print(f"\nCongrats! The word was {word}")
         doesnt_contain = []
         currentscore += 1
-        update_highscore()
-        run_game()
+        highscore = update_highscore(currentscore, highscore)
+        run_game(currentscore, highscore)
     else:
         lives -= 1
-        check_stats()
+        check_stats(lives, word, empty_list, doesnt_contain, currentscore, highscore)
 
 
-def update_highscore():
+def update_highscore(currentscore, highscore):
     """
     Updates the highscore based on the currentscore.
     """
-    global highscore, currentscore
     if currentscore > highscore:
         highscore = currentscore
+    return highscore
 
 
-def new_guess():
+def new_guess(lives, word, empty_list, doesnt_contain, currentscore, highscore):
     """
     Runs through functions to get a new guess from the user.
     """
-    display_info()
+    display_info(lives, word, empty_list, doesnt_contain, currentscore, highscore)
     get_input()
-    validate_input_length()
-    validate_input_characters()
-    check_guess()
+    user_guess = get_input()
+    validate_input_length(user_guess, lives, word, empty_list, doesnt_contain, currentscore, highscore)
+    validate_input_characters(user_guess, lives, word, empty_list, doesnt_contain, currentscore, highscore)
+    check_guess(user_guess, lives, word, empty_list, doesnt_contain, currentscore, highscore)
 
 
-def run_game():
+def run_game(currentscore, highscore):
     """
     Run functions to set up game
     """
-    new_word()
-    validate_word()
-    create_empty_list()
-    new_guess()
+    word = new_word()
+    validate_word(word)
+    doesnt_contain = []
+    lives = 0
+    lives = len(word)
+    empty_list = create_empty_list(word)
+    new_guess(lives, word, empty_list, doesnt_contain, currentscore, highscore)
 
 
 print("""
@@ -172,4 +167,5 @@ about them.
 
 Let's Play!
 """)
-run_game()
+
+run_game(currentscore, highscore)
