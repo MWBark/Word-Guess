@@ -9,7 +9,7 @@ def new_word():
     """
     Gets a new random word.
     """
-    word = wordnik_service.get_random_word().lower()
+    word = wordnik_service.get_random_word()
     return word
 
 
