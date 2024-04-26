@@ -59,29 +59,29 @@ def get_input():
     return user_guess
 
 
-def validate_input(user_guess, lives, word, empty_list, doesnt_contain, currentscore, highscore):
+def validate_input(user_guess, lives, word, empty_list, doesnt_contain, currentscore, highscore, guessed_words):
     """
     Checks the length of the user's word guess matches that of the random word.
     Prints statement and starts new guess if true.
     """
     if len(user_guess) > 1 and len(user_guess) != len(word):
         print(f"\nIncorrect word length of {len(user_guess)} letters entered\n")
-        new_guess(lives, word, empty_list, doesnt_contain, currentscore, highscore)
+        new_guess(lives, word, empty_list, doesnt_contain, currentscore, highscore, guessed_words)
     elif len(user_guess) < 1:
         print("\nNo input was entered\n")
         new_guess(lives, word, empty_list, doesnt_contain, currentscore, highscore)
-    elif user_guess in empty_list or user_guess in doesnt_contain:
+    elif user_guess in empty_list or user_guess in doesnt_contain or user_guess in guessed_words:
         print(f"\n'{user_guess}' has already been guessed\n")
-        new_guess(lives, word, empty_list, doesnt_contain, currentscore, highscore)
+        new_guess(lives, word, empty_list, doesnt_contain, currentscore, highscore, guessed_words)
     else:
         for i in [*user_guess]:
             if i not in list(map(chr, range(97, 123))):
                 print(f"\n'{user_guess}' contains invalid characters")
                 print("Please use lowercase english alphabet characters\n")
-                new_guess(lives, word, empty_list, doesnt_contain, currentscore, highscore)
+                new_guess(lives, word, empty_list, doesnt_contain, currentscore, highscore, guessed_words)
 
 
-def check_lives(lives, word, empty_list, doesnt_contain, currentscore, highscore):
+def check_lives(lives, word, empty_list, doesnt_contain, currentscore, highscore, guessed_words):
     """
     Check the lives. If lives = 0, reset currentscore and run_game,
     else start a new guess.
@@ -91,17 +91,17 @@ def check_lives(lives, word, empty_list, doesnt_contain, currentscore, highscore
         currentscore = 0
         run_game(currentscore, highscore)
     else:
-        new_guess(lives, word, empty_list, doesnt_contain, currentscore, highscore)
+        new_guess(lives, word, empty_list, doesnt_contain, currentscore, highscore, guessed_words)
 
 
-def check_guess(user_guess, lives, word, empty_list, doesnt_contain, currentscore, highscore):
+def check_guess(user_guess, lives, word, empty_list, doesnt_contain, currentscore, highscore, guessed_words):
     """
     If guess is a letter, checks whether it's in the random word or not.
     If it is, updates empty_guess and checks if it matches the word.
     If it does, run got_word, else run new_guess.
     If the letter guess isn't in the random word, add it to doesnt_contain,
     minus 1 life, and run check_stats.
-    If guess is a word, run got-word if correct, else minus 1 life and check_stats
+    If guess is a word, run got-word if correct, else minus 1 life, add to guessed_words and check_stats
     """
     if len(user_guess) < 2:
         if user_guess in [*word]:
@@ -113,19 +113,20 @@ def check_guess(user_guess, lives, word, empty_list, doesnt_contain, currentscor
                 got_word(word, currentscore, highscore)
             else:
                 print(f"\n'{user_guess}' is in word\n")
-                new_guess(lives, word, empty_list, doesnt_contain, currentscore, highscore)
+                new_guess(lives, word, empty_list, doesnt_contain, currentscore, highscore, guessed_words)
         else:
             doesnt_contain += user_guess
             print(f"\nword doesn't contain '{user_guess}'\n")
             lives -= 1
-            check_lives(lives, word, empty_list, doesnt_contain, currentscore, highscore)
+            check_lives(lives, word, empty_list, doesnt_contain, currentscore, highscore, guessed_words)
     else:
         if user_guess == word:
                 got_word(word, currentscore, highscore)
         else:
             print(f"\nThe word isn't '{user_guess}'")
+            guessed_words.append(user_guess)
             lives -= 1
-            check_lives(lives, word, empty_list, doesnt_contain, currentscore, highscore)
+            check_lives(lives, word, empty_list, doesnt_contain, currentscore, highscore, guessed_words)
 
 
 def got_word(word, currentscore, highscore):
@@ -141,14 +142,14 @@ def got_word(word, currentscore, highscore):
     run_game(currentscore, highscore)
 
 
-def new_guess(lives, word, empty_list, doesnt_contain, currentscore, highscore):
+def new_guess(lives, word, empty_list, doesnt_contain, currentscore, highscore, guessed_words):
     """
     Runs through functions to get a new guess from the user.
     """
     display_info(lives, word, empty_list, doesnt_contain, currentscore, highscore)
     user_guess = get_input()
-    validate_input(user_guess, lives, word, empty_list, doesnt_contain, currentscore, highscore)
-    check_guess(user_guess, lives, word, empty_list, doesnt_contain, currentscore, highscore)
+    validate_input(user_guess, lives, word, empty_list, doesnt_contain, currentscore, highscore, guessed_words)
+    check_guess(user_guess, lives, word, empty_list, doesnt_contain, currentscore, highscore, guessed_words)
 
 
 def run_game(currentscore, highscore):
@@ -159,9 +160,10 @@ def run_game(currentscore, highscore):
     validate_word(word)
     empty_list = create_empty_list(word)
     doesnt_contain = []
+    guessed_words = []
     lives = 0
     lives = len(word)
-    new_guess(lives, word, empty_list, doesnt_contain, currentscore, highscore)
+    new_guess(lives, word, empty_list, doesnt_contain, currentscore, highscore, guessed_words)
 
 
 print("""
