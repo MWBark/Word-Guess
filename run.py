@@ -9,18 +9,18 @@ def new_word():
     """
     Gets a new random word.
     """
-    word = wordnik_service.get_random_word()
+    valid = False
+    word = ""
+
+    while not valid:
+        valid = True
+        word = wordnik_service.get_random_word()
+
+        for i in [*word]:
+            if i not in list(map(chr, range(97, 123))) and i != '-':
+                valid = False
+
     return word
-
-
-def validate_word(word):
-    """
-    Checks the random word only contains lowercase english alphabet letters
-    or '-'. If not, runs 'run_game' function again.
-    """
-    for i in [*word]:
-        if i not in list(map(chr, range(97, 123))) and i != '-':
-            run_game(currentscore, highscore)
 
 
 def create_empty_list(word):
@@ -155,7 +155,6 @@ def run_game(currentscore, highscore):
     Run functions to set up game
     """
     word = new_word()
-    validate_word(word)
     empty_list = create_empty_list(word)
     doesnt_contain = []
     guessed_words = []
