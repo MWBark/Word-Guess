@@ -1,8 +1,21 @@
 from random_word import Wordnik
+import requests
 
 wordnik_service = Wordnik()
 currentscore = 0
 highscore = 0
+
+
+def check_api():
+    """
+    Checks whether the API is running.
+    If not, prints message.
+    """
+    req = requests.get("https://status.wordnik.com/").status_code
+
+    if req != 200:
+        print("The Wordnik API used to generate the random words appears to be down. Check status at https://status.wordnik.com/.")
+        exit()
 
 
 def new_word():
@@ -154,6 +167,7 @@ def run_game(currentscore, highscore):
     """
     Run functions to set up game
     """
+    check_api()
     word = new_word()
     empty_list = create_empty_list(word)
     doesnt_contain = []
