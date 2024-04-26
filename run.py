@@ -51,34 +51,33 @@ def display_info(lives, word, empty_list, doesnt_contain, currentscore, highscor
     print(*empty_list)
 
 
-def get_input():
+def get_input(word, empty_list, doesnt_contain, guessed_words):
     """
     Gets user's letter or word guess.
     """
-    user_guess = input("Enter a letter or word: \n")
-    return user_guess
+    valid = False
+    user_guess = ""
 
+    while not valid:
+        valid = True
+        user_guess = input("Enter a word or letter:\n")
 
-def validate_input(user_guess, lives, word, empty_list, doesnt_contain, currentscore, highscore, guessed_words):
-    """
-    Checks the length of the user's word guess matches that of the random word.
-    Prints statement and starts new guess if true.
-    """
-    if len(user_guess) > 1 and len(user_guess) != len(word):
-        print(f"\nIncorrect word length of {len(user_guess)} letters entered\n")
-        new_guess(lives, word, empty_list, doesnt_contain, currentscore, highscore, guessed_words)
-    elif len(user_guess) < 1:
-        print("\nNo input was entered\n")
-        new_guess(lives, word, empty_list, doesnt_contain, currentscore, highscore)
-    elif user_guess in empty_list or user_guess in doesnt_contain or user_guess in guessed_words:
-        print(f"\n'{user_guess}' has already been guessed\n")
-        new_guess(lives, word, empty_list, doesnt_contain, currentscore, highscore, guessed_words)
-    else:
+        if len(user_guess) > 1 and len(user_guess) != len(word):
+            valid = False
+            print(f"\nIncorrect word length of {len(user_guess)} letters entered\n")   
+        if len(user_guess) < 1:
+            valid = False
+            print("No input was entered\n")
+        if user_guess in empty_list or user_guess in doesnt_contain or user_guess in guessed_words:
+            valid = False
+            print(f"\n'{user_guess}' has already been guessed\n")
         for i in [*user_guess]:
             if i not in list(map(chr, range(97, 123))):
+                valid = False
                 print(f"\n'{user_guess}' contains invalid characters")
                 print("Please use lowercase english alphabet characters\n")
-                new_guess(lives, word, empty_list, doesnt_contain, currentscore, highscore, guessed_words)
+
+    return user_guess
 
 
 def check_lives(lives, word, empty_list, doesnt_contain, currentscore, highscore, guessed_words):
@@ -147,8 +146,7 @@ def new_guess(lives, word, empty_list, doesnt_contain, currentscore, highscore, 
     Runs through functions to get a new guess from the user.
     """
     display_info(lives, word, empty_list, doesnt_contain, currentscore, highscore)
-    user_guess = get_input()
-    validate_input(user_guess, lives, word, empty_list, doesnt_contain, currentscore, highscore, guessed_words)
+    user_guess = get_input(word, empty_list, doesnt_contain, guessed_words)
     check_guess(user_guess, lives, word, empty_list, doesnt_contain, currentscore, highscore, guessed_words)
 
 
