@@ -89,6 +89,7 @@ def get_input(word, empty_list, doesnt_contain, guessed_words):
                 valid = False
                 print(f"\n'{user_guess}' contains invalid characters")
                 print("Please use lowercase english alphabet characters\n")
+                break
 
     return user_guess
 
@@ -99,7 +100,7 @@ def check_lives(lives, word, empty_list, doesnt_contain, currentscore, highscore
     else start a new guess.
     """
     if lives == 0:
-        print(f"\nBad luck. the word was {word}\n")
+        print(f"\nBad luck. the word was '{word}'\n")
         currentscore = 0
         run_game(currentscore, highscore)
     else:
@@ -145,7 +146,7 @@ def got_word(word, currentscore, highscore):
     """
     Run winning end game. Ad 1 to currentscore, update the highscore, then run_game.
     """
-    print(f"\nCongrats! The word was '{word}\n'")
+    print(f"\nCongrats! The word was '{word}'\n")
     currentscore += 1
 
     if currentscore > highscore:
