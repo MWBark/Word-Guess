@@ -4,6 +4,12 @@ Word Guess is a Python terminal game which runs in a mock terminal on Heroku. Us
 
 [Here is the live version of my project.](https://mwbark-word-guess-07e0e1567ada.herokuapp.com/)
 
+## Planning
+
+A flowchart for the initial idea of how the game plays
+
+![Flowchart of gameplay](assets/images/word-guess-flowchart.png)
+
 ## How to Play
 
 A random word is generated and displayed as empty blank spaces.
@@ -12,7 +18,7 @@ Users can then guess the word outright or guess individual letters within the wo
 
 Correct letter guesses update the empty blank spaces at the correct letter’s positions in the word.
 
-Letter guesses and incorrect word guesses cost 1 life point.
+Incorrect letter guesses and word guesses cost 1 life point.
 
 Life points equal to the length of the random word are generated for each new word (e.g. 5 points for a 5-letter word).
 
@@ -32,6 +38,7 @@ A successful word guess scores the user 1 point.
 - Guess validator
   - checks user word guess length is equal to the length of the random word
   - checks whether the user's guess contains only lowercase English alphabet characters
+  -  checks whether the guess has already been made
 - Letter guess updater
   - successful letter guesses are added to the empty letter spaces
   - unsuccessful guesses are added to a 'doesn't contain' list
@@ -83,7 +90,8 @@ This project was deployed using a mock terminal in Heroku.
 
 ## Credits
 
--  vaibhavsingh97 for the imports [here]()
+-  [Youtube](https://www.youtube.com/watch?v=ZNczyrq7F2Q) video for the validation loops
+-  vaibhavsingh97 for the imports [here](https://github.com/vaibhavsingh97/random-word/blob/master/docs/wordnik.md)
 -  Wordnik for the generate words. Link below.
 
 [<img src="assets/images/wordnik_badge_b1.png">](https://wordnik.com/)
