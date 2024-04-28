@@ -182,7 +182,7 @@ print("""
 WELCOME TO WORD GUESS!
 
 Guess the random words generated from Wordnik. Enter letters to fill in the
-blank letter spaces or guess the whole word. Letter guesses and incorrect word
+blank letter spaces or guess the whole word. Incorrect letter guesses and word
 guesses cost life points. Life points equal to the length of the random word
 are added for each new word. Guess the word before your life points reach 0.
 Successful guesses score a point.
