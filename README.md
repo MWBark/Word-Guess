@@ -4,6 +4,8 @@ Word Guess is a Python terminal game which runs in a mock terminal on Heroku. Us
 
 [Here is the live version of my project.](https://mwbark-word-guess-07e0e1567ada.herokuapp.com/)
 
+![Am I responsive? mutlti screen picture](assets/images/am-i-responsive.jpeg.jpg)
+
 ## Planning
 
 A flowchart for the initial idea of how the game plays
@@ -44,6 +46,8 @@ A successful word guess scores the user 1 point.
   - unsuccessful guesses are added to a 'doesn't contain' list
 - Life points
 - Current score and high score
+
+![Word guess game preview](assets/images/word-guess-preview.jpeg.jpg)
 
 ### Future Features
 
