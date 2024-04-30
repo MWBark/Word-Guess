@@ -10,7 +10,7 @@ Word Guess is a Python terminal game which runs in a mock terminal on Heroku. Us
 
 A flowchart for the initial idea of how the game plays
 
-![Flowchart of gameplay](assets/images/word-guess-flowchart.png)
+![Flowchart of gameplay](assets/images/word-guess-flowchart2.png)
 
 ## How to Play
 
@@ -57,6 +57,8 @@ A successful word guess scores the user 1 point.
 - User classes to keep track of player info
 
 ## Data Model
+
+- Data is stored in variables such as 'currentscore',     'highscore', 'word' etc.
 
 ## Testing
 
