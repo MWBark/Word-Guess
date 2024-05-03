@@ -76,7 +76,7 @@ def get_input(word, empty_list, doesnt_contain, guessed_words):
 
     while not valid:
         valid = True
-        user_guess = input("Enter a word or letter:\n")
+        user_guess = input("Enter a word or letter:\n").lower()
 
         if len(user_guess) > 1 and len(user_guess) != len(word):
             valid = False
@@ -91,7 +91,7 @@ def get_input(word, empty_list, doesnt_contain, guessed_words):
             if i not in list(map(chr, range(97, 123))):
                 valid = False
                 print(f"\n'{user_guess}' contains invalid characters")
-                print("Please use lowercase english alphabet characters\n")
+                print("Please use english alphabet characters\n")
                 break
 
     return user_guess
