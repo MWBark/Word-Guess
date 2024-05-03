@@ -72,7 +72,9 @@ I have manually tested this project by doing the following:
 
 ### Solved Bugs
 
-- 'doesn't contain' list didn't reset on successful word guess as i forgot to add 'doesnt_contain = []' in the correct place.
+- 'doesn't contain' list didn't reset on successful word guess as i forgot to add 'doesnt_contain = []' in the correct place
+
+- Added 'break' to iteration checking for valid characters in 'get_input' to stop message printing multiple times
 
 ### Unfixed Bugs
 
@@ -97,6 +99,7 @@ This project was deployed using a mock terminal in Heroku.
 ## Credits
 
 -  [Youtube](https://www.youtube.com/watch?v=ZNczyrq7F2Q) video for the validation loops
+-  [Stackoverflow](https://stackoverflow.com/questions/39933029/how-do-i-repeat-the-game-on-a-loop) for the end game loop
 -  vaibhavsingh97 for the imports [here](https://github.com/vaibhavsingh97/random-word/blob/master/docs/wordnik.md)
 -  Wordnik for the generate words. Link below.
 
