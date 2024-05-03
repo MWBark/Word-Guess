@@ -34,6 +34,7 @@ def new_word():
         for i in [*word]:
             if i not in list(map(chr, range(97, 123))) and i != '-':
                 valid = False
+                break
 
     return word
 
