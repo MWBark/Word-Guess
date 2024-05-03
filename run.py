@@ -105,7 +105,7 @@ def run_guess(lives, word, empty_list, doesnt_contain, currentscore, highscore, 
     """
     new_guess = True
 
-    while new_guess == True:
+    while new_guess is True:
         display_info(lives, word, empty_list, doesnt_contain, currentscore, highscore)
         user_guess = get_input(word, empty_list, doesnt_contain, guessed_words)
 
@@ -164,7 +164,7 @@ def run_game(currentscore, highscore):
     Run functions to set up game
     """
     api_up = check_api()
-    if api_up == True:
+    if api_up is True:
         # Reset Game
         word = new_word()
         empty_list = create_empty_list(word)
@@ -174,15 +174,23 @@ def run_game(currentscore, highscore):
         lives = len(word)
         # Get user input
         got_word = run_guess(lives, word, empty_list, doesnt_contain, currentscore, highscore, guessed_words)
-        if got_word == True:
+        if got_word is True:
             print(f"\nWell done. The word was '{word}'\n")
             currentscore += 1
             highscore = update_highscore(currentscore, highscore)
-            run_game(currentscore, highscore)
         else:
             print(f"\nBad luck. The word was '{word}'\n")
             currentscore = 0
-            run_game(currentscore, highscore)
+
+        while True:
+            answer = input("Continue playing? Enter 'yes' or 'no'.\n").lower()
+            if answer == 'yes':
+                run_game(currentscore, highscore)
+            elif answer == 'no':
+                print("\nThanks for playing Word Guess!\n")
+                break
+            else:
+                print(f"\nYou entered '{answer}'. Please only enter 'yes' or 'no'.\n")
 
 
 print("""
@@ -199,6 +207,5 @@ about them.
 
 Let's Play!
 """)
-
 
 run_game(currentscore, highscore)
